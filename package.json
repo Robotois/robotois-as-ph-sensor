@@ -1,0 +1,40 @@
+{
+  "name": "robotois-as-ph-sensor",
+  "version": "0.10.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robotois/robotois-as-ph-sensor.git"
+  },
+  "keywords": [],
+  "author": "yovany.lg@gmail.com",
+  "keywords": [
+    "atlas scientific",
+    "ph sensor",
+    "Raspberry pi",
+    "sensor",
+    "robotois",
+    "IOT"
+  ],
+  "contributors": [
+    {
+      "name": "José Yovany Luis García",
+      "email": "yovany.lg@gmail.com",
+      "url": "http://robotois.com/"
+    }
+  ],
+  "license": "ISC",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/Robotois/robotois-as-ph-sensor/issues"
+  },
+  "homepage": "https://github.com/Robotois/robotois-as-ph-sensor#readme",
+  "dependencies": {
+    "bindings": "^1.3.0"
+  }
+}

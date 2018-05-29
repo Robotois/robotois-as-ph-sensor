@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   main.cpp
  * Author: yovany
  *
@@ -17,7 +17,7 @@
 using namespace std;
 
 /*
- * 
+ *
  */
 int main(int argc, char** argv) {
     PhSensor phSensor;
@@ -27,4 +27,3 @@ int main(int argc, char** argv) {
 //    printf("Message: %.2f\n", reading);
     return 0;
 }
-

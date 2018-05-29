@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   PhSensor.h
  * Author: yovany
  *
@@ -28,7 +28,7 @@ public:
     PhSensor(uint8_t addr = 0x00);
     PhSensor(const PhSensor& orig);
     virtual ~PhSensor();
-    
+
     float reading();
     bool deviceInfo();
     void tempCompensation(float temp);
@@ -44,4 +44,3 @@ private:
 };
 
 #endif /* PHSENSOR_H */
-

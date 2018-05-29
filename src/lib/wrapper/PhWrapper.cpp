@@ -126,7 +126,7 @@ void PhWrapper::tempCompensation(const FunctionCallbackInfo<Value>& args){
 
   float temp = args[0]->NumberValue();
 
-  MotorsWrapper* temp_obj = ObjectWrap::Unwrap<MotorsWrapper>(args.Holder());
+  PhWrapper* temp_obj = ObjectWrap::Unwrap<PhWrapper>(args.Holder());
   temp_obj->sensor->tempCompensation(temp); // The PWM range is (-1000)-1000 in the Motor Module
 }
 
@@ -143,6 +143,6 @@ void PhWrapper::calibrate(const FunctionCallbackInfo<Value>& args){
   uint8_t point = args[0]->NumberValue();
   float phValue = args[1]->NumberValue();
 
-  MotorsWrapper* temp_obj = ObjectWrap::Unwrap<MotorsWrapper>(args.Holder());
+  PhWrapper* temp_obj = ObjectWrap::Unwrap<PhWrapper>(args.Holder());
   temp_obj->sensor->calibrate(point, phValue); // The PWM range is (-1000)-1000 in the Motor Module
 }

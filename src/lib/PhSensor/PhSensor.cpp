@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   PhSensor.cpp
  * Author: yovany
- * 
+ *
  * Created on May 25, 2018, 10:36 AM
  */
 
@@ -20,7 +20,8 @@
 #include <cstring>
 #include <sstream>
 #include <iomanip>
-
+#include <cmath>
+#include <exception>
 #include <thread>
 #include <chrono>
 
@@ -48,9 +49,9 @@ bool PhSensor::deviceInfo() {
     selectModule();
     bcm2835_i2c_write(wBuf, 1);
     std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    uint8_t result = bcm2835_i2c_read(rBuf, 20);
-//    printf("First Character: %d %d\n", rBuf[0], rBuf[1]);
-    printf("Message: %s\n", rBuf);
+    bcm2835_i2c_read(rBuf, 20);
+//    printf("Message: %s\n", rBuf);
+    std::cout<<"[pHSensor] - deviceInfo: "<<std::string(rBuf)<<std::endl;
     if (rBuf[0] == 1) {
         return true;
     }
@@ -63,12 +64,31 @@ float PhSensor::reading() {
     std::this_thread::sleep_for(std::chrono::milliseconds(900));
     bcm2835_i2c_read(rBuf, 20);
     std::string message = rBuf;
-    std::string::size_type sz;
-//    printf("First Character: %d\n", rBuf[6]);
+//    std::string::size_type sz;
+//    printf("Full Message: %s\n", message);
+//    std::cout<<"Full Message: "<<message<<std::endl;
 //    printf("Message: %.3f\n", result);
-    float result = std::stof(message.substr(1, 5), &sz);
+    float result = -10;
+    if (rBuf[0] != 0x01) {
+        printf("[pH Sensor] -> Message Error\n");
+        // std::this_thread::sleep_for(std::chrono::milliseconds(150));
+        // bcm2835_i2c_read(rBuf, 20);
+        return result;
+    }
+    try {
+        result = std::stof(message.substr(1, 6));
+    } catch (const std::exception& e) {
+//        std::cout<<"[pH Sensor] - Error: "<<e.what()<<" => Last Message: "<<message<<std::endl;
+        result = -10;
+//        std::cout<<"[pH Sensor] - Last Message: "<<message<<std::endl;
+    }
 //    std::cout<<result;
     return result;
+}
+
+float PhSensor::roundedValue(float value) {
+    float newValue = std::floor((value * 100) + .5) / 100;
+    return newValue;
 }
 
 void PhSensor::tempCompensation(float temp) {
@@ -78,7 +98,7 @@ void PhSensor::tempCompensation(float temp) {
     bcm2835_i2c_write(wBuf, 6);
     std::this_thread::sleep_for(std::chrono::milliseconds(300));
     bcm2835_i2c_read(rBuf, 20);
-    
+
     if (rBuf[0] != 1) {
         printf("[PhSensor] - Error setting temp compensation\n");
     }
@@ -91,7 +111,7 @@ void PhSensor::calibrate(uint8_t point, float phValue) {
 //    bcm2835_i2c_write(wBuf, 6);
 //    std::this_thread::sleep_for(std::chrono::milliseconds(300));
 //    bcm2835_i2c_read(rBuf, 20);
-//    
+//
 //    if (rBuf[0] != 1) {
 //        printf("[PhSensor] - Error setting temp compensation\n");
 //    }
@@ -106,7 +126,7 @@ std::string PhSensor::calibrateString(uint8_t point) {
         case HIGH_CALIBRATION:
             return "high";
     }
-    
+    return "";
 }
 
 void PhSensor::selectModule(){

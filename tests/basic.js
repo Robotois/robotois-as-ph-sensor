@@ -1,9 +1,9 @@
-const Sensor = require('../index.js');
+const Sensor = require('../');
 
-const phSensor = new Sensor(0);
+const phSensor = Sensor();
 
-setTimeout(() => {
+setInterval(() => {
   console.log('phValue:', phSensor.read());
-});
+}, 50);
 
 // phSensor.deviceInfo();

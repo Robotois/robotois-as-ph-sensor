@@ -7,7 +7,8 @@
         "src/lib/wrapper/PhWrapper.cpp",
         "src/lib/PhSensor/PhSensor.cpp",
       ],
-      "libraries": ["-l bcm2835", "-l rt"]
+      "libraries": ["-l bcm2835", "-l rt"],
+      "cflags_cc": ['-fexceptions']
     }
   ]
 }

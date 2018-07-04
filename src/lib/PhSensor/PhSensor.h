@@ -40,6 +40,7 @@ private:
     void bcm_end();
     void selectModule();
     std::string calibrateString(uint8_t point);
+    float roundedValue(float value);
 
 };
 
